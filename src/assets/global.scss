@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
+
 body{
   background-color: #F0F0F0;
+  padding:  0 5%;
+  font-family: 'Noto Sans TC', sans-serif;
 }
 
 header {
@@ -19,6 +23,28 @@ header {
   }
 
 }
+
+.drop-down{
+  border: none;
+  background: #ffffff;
+  padding: 5px 10px;
+  box-shadow: 5px 5px 5px #B6B6B6;
+
+  ul{
+    li{
+      display: inline-flex;
+      width: 100%;
+    }
+  }
+}
+
+ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+
   
 .flex{
   display: flex;
@@ -26,6 +52,14 @@ header {
 
 .flex-right{
   justify-content: right;
+}
+
+.flex-center{
+  justify-content: center;
+}
+
+.line{
+  border-top: #F0F0F0;
 }
 
 .absolute{

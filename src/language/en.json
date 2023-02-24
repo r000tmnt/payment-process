@@ -1,4 +1,6 @@
 {
     "help": "HELP",
-    "signin": "SIGN IN"
+    "signin": "SIGN IN",
+    "data": "MY Data",
+    "pay": "Payment"
 }

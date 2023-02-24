@@ -22,12 +22,14 @@
       </button>
       <ChevronDown fillColor="#429EF0" :size="36" />
 
-      <select v-if="open" class="drop-down absolute" v-model="$i18n.locale" :style="{'width': selectWidth + 'px'}">
-        <option v-for="language in languageOptions" :value="language">
-          {{ language }}
-          <ChevronDown v-if="language === lang" fillColor="#429EF0" size="36" />
-        </option>
-      </select>      
+      <aside v-if="open" class="drop-down absolute " :style="{'width': $refs.selectRef.clientWidth + 'px'}">
+        <ul>
+          <li v-for="language in languageOptions" @click="changeLanguage(language)">
+            <span style="padding-top: 6px;">{{ language }}</span>
+            <ChevronDown v-if="language === lang" fillColor="#429EF0" size="36" style="margin-left: auto;" />
+          </li>
+        </ul>
+      </aside>      
     </div>
     
   </header>
@@ -39,6 +41,7 @@ import HelpCircleOutline from 'vue-material-design-icons/HelpCircleOutline.vue';
 import ChevronDown from 'vue-material-design-icons/ChevronDown.vue';
 import accountCircleOutline from 'vue-material-design-icons/accountCircleOutline.vue';
 import flagVariantOutline from 'vue-material-design-icons/flagVariantOutline.vue';
+
 
 export default {
   props: {
@@ -59,9 +62,11 @@ export default {
   },
   methods: {
     openLanguageSelect(){
-      console.log(this.$refs.selectRef.clientWidth)
-      this.open = true
-      this.selectWidth = this.$refs.selectRef.clientWidth
+      this.open = !this.open
+    },
+
+    changeLanguage(language){
+      this.$i18n.locale = language
     }
   }
 }

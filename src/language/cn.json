@@ -2,5 +2,10 @@
     "help": "幫助",
     "signin": "登入",
     "data": "個人資料",
-    "pay": "付款"
+    "data-desc": "請輸入您的個人資料",
+    "pay": "付款",
+    "pay-desc": "付款過後您將會收到包含細節的確認信件",
+    "first-name": "名字",
+    "last-name": "姓氏",
+    "continue": "繼續"
 }

@@ -1,6 +1,11 @@
 {
     "help": "HELP",
     "signin": "SIGN IN",
-    "data": "MY Data",
-    "pay": "Payment"
+    "data": "My Data",
+    "data-desc": "Please enter your personal data and press continue",
+    "pay": "Payment",
+    "pay-desc": "After making the payment you will receive a confirmation email with details of your purchase",
+    "first-name": "Name",
+    "last-name": "Last Name",
+    "continue": "Continue"
 }

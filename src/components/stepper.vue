@@ -14,15 +14,17 @@
 
     <main class="flex flex-center">
         <div id="step-content">
-            <component  
+            <component
                 :is="steps[currentStep - 1].component" 
                 :title="steps[currentStep - 1].title"
                 :desc="steps[currentStep - 1].desc"
                 :finish="steps[currentStep - 1].finish"
                 :fields="fields.length? fields[currentStep - 1] : {} "
+                :result="result"
                 @backToPrevious="currentStep += -1"
                 @toNext="proceed"
-            ></component>
+            ></component>   
+
         </div>        
     </main>
 </template>
@@ -35,14 +37,15 @@ export default{
         steps: {
             type: Object,
             required: true
-        }
+        },
+        result: Object
     },
     components: {
         Check
     },
     data(){
         return{
-            currentStep: 2,
+            currentStep: 1,
             fields: []
         }
     },

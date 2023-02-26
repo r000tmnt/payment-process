@@ -1,15 +1,28 @@
 <template>
     <h1 class="text-center">
-        {{ $t(title) }}
+        {{ finish?
+            $i18n.locale === 'EN'? 
+                result?.title.en : 
+                result?.title.cn :
+            $t(title) }}
     </h1>
 
-    <p class="text-center">{{ $t(desc) }}</p>
+    <div class="text-center">
+        <CertificateOutline  v-if="finish" :size="100" />        
+    </div>
+
+
+    <p class="text-center">{{ finish? 
+                            $i18n.locale === 'EN'? 
+                                result?.desc.en : 
+                                result?.desc.cn :    
+                            $t(desc) }}</p>
 
     <div class="step-form flex flex-center">
 
         <div v-if="!finish" class="step-input flex-column text-center">
 
-            <div class="step-form-content">
+            <div class="step-form-note">
                 <CreditCardMultiple :size="48" />
                 <h2>{{ $t("credit-card") }}</h2>
 
@@ -28,7 +41,7 @@
                     class="step-form-button flex flex-center text-white" 
                     type="button" 
                     @click="$emit('backToPrevious')" 
-                    style="background-color: #429EF0; float: left">
+                    :style="{'background-color': apiFired? 'grey' : '#429EF0', 'float': 'left'}">
                     <ChevronLeft class="prev absolute" fillColor="#ffffff" />
                     <div>{{ $t("back") }}</div>
                 </button>    
@@ -36,20 +49,14 @@
                 <button 
                     class="step-form-button flex flex-center text-white" 
                     type="button"  
-                    @click="$emit('toNext')"
-                    style="background-color: #429EF0; float: right">
+                    @click="complete"
+                    :style="{'background-color': apiFired? 'grey' : '#429EF0', 'float': 'right'}">
                     <div>{{ $t('pay') }}</div>
                     <ChevronRight class="next absolute" fillColor="#ffffff" />
                 </button>            
             </div>             
         </div>
-        
-        <div v-else>
-            <div class="step-form-content">
-                Congratulations, your payment was successful. 
-                Shortly a confirmation email will arrive to your inbox
-            </div>            
-        </div>
+
     </div>
 </template>
 
@@ -57,22 +64,31 @@
 import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
 import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue';
 import CreditCardMultiple from 'vue-material-design-icons/CreditCardMultiple.vue';
+import CertificateOutline from 'vue-material-design-icons/CertificateOutline.vue';
 
 export default{
     props: {
         title: String,
         desc: String,
-        finish: Boolean
+        finish: Boolean,
+        result: Object
     },
     components: {
         ChevronRight,
         ChevronLeft,
-        CreditCardMultiple
+        CreditCardMultiple,
+        CertificateOutline
     },
     emits: ['backToPrevious', 'toNext'],
     data(){
         return{
-
+            apiFired: false
+        }
+    },
+    methods: {
+        complete(){
+            this.apiFired = true
+            this.$emit('toNext')
         }
     }
 }

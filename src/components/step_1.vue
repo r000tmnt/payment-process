@@ -6,16 +6,16 @@
     <p class="text-center">{{ $t(desc) }}</p>
 
     <div class="step-form flex flex-center">
-        <div class="step-input">
+        <div class="step-form-content">
             <label class="step-input-label" for="firstName">
                 {{ $t("first-name") }} <span class="require">*</span>
             </label>
-            <input type="text" name="firstName" v-model="firstName" required/>
+            <input class="step-input" type="text" name="firstName" v-model="firstName" required/>
             
             <label class="step-input-label" for="lastName">
                 {{ $t("last-name") }} <span class="require">*</span>
             </label>
-            <input type="text" name="lastName" v-model="lastName" required/>
+            <input class="step-input" type="text" name="lastName" v-model="lastName" required/>
             
             <button 
                 class="step-form-button flex flex-center text-white" 
@@ -27,7 +27,7 @@
                     'cursor': (!firstName.length || !lastName.length)? 'unset' : 'pointer',
                     'float': 'right'}">
                 <div>{{ $t('continue') }}</div>
-                <ChevronRight fillColor="#ffffff" />
+                <ChevronRight class="next absolute" fillColor="#ffffff" />
             </button>
         </div>
     </div>
@@ -41,12 +41,14 @@ export default{
     props: {
         title: String,
         desc: String,
-        fields: Object
+        fields: Object,
+        finish: Boolean,
+        result: Object        
     },
     components: {
         ChevronRight
     },
-    emits: ['toNext'],
+    emits: ['toNext', 'backToPrevious'],
     data(){
         return{
             firstName: '',
@@ -55,7 +57,7 @@ export default{
     },
     methods: {
         async checkInputValue(){
-            console.log('click')
+            // console.log('click')
             if(this.firstName.length && this.lastName.length){
                 this.returnToParent()
             }

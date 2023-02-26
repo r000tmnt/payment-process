@@ -1,7 +1,7 @@
 <template>
   <Header :lang="$i18n.locale"></Header>
 
-  <Stepper :steps="steps" @finishStep="toNextStep" />
+  <Stepper :steps="steps" @finishStep="toNextStep" :result="result" />
 </template>
 
 <script>
@@ -12,7 +12,6 @@
 
   import { shallowRef } from 'vue';
   import axiosClient from './axios';
-import { BADFLAGS } from 'dns';
 
   const step_1 = shallowRef(Step_1)
   const step_2 = shallowRef(Step_2)
@@ -39,34 +38,45 @@ import { BADFLAGS } from 'dns';
             component: step_2,
             finish: false
           }
-        ]
+        ],
+        result: {}
       }
     },
     methods: {
       toNextStep(val, index, finish){
           
-        this.steps[index].finish = finish
-
         // If the current step is the last one
         if(index === (this.steps.length - 1)){
-          const payload = {}
+          let payload = {}
 
           val.forEach((field) => {
             payload = { ...payload, ...field }
           });
 
           this.pushData(payload)          
+        }else{
+          this.steps[index].finish = finish
         }
-
       },
 
       async pushData(payload){
         try {
             let result = await axiosClient.post('5fd5b0a0-7cec-4ccf-bdec-b9c99c78e29f', payload)
-            console.log('result :>>>', result)
+            // console.log('result :>>>', result)
 
-            if(result.en){}
-            //                 
+            this.result = {
+              title: {
+                en: result.title.en,
+                cn: result.title.zh_CN
+              },
+              desc: {
+                en: result.message.en,
+                cn: result.message.zh_CN
+              }
+            }
+
+            this.steps[ this.steps.length - 1 ].finish = true
+
         } catch (error) {
             console.log(error)
         }

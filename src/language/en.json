@@ -3,9 +3,14 @@
     "signin": "SIGN IN",
     "data": "My Data",
     "data-desc": "Please enter your personal data and press continue",
-    "pay": "Payment",
-    "pay-desc": "After making the payment you will receive a confirmation email with details of your purchase",
+    "payment": "Payment",
+    "payment-desc": "After making the payment you will receive a confirmation email with details of your purchase",
+    "payment-note": "You will be redirected to a secure payment platform. This is a secure process. The validation of your payment can take up to 24 hours.",
+    "credit-card": "Credit Card",
     "first-name": "Name",
     "last-name": "Last Name",
-    "continue": "Continue"
+    "continue": "Continue",
+    "back": "Back",
+    "pay": "Pay"
+
 }

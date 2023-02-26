@@ -1,9 +1,9 @@
 <template>
     <h1 class="text-center">
-        {{ title }}
+        {{ $t(title) }}
     </h1>
 
-    <p class="text-center">{{ desc }}</p>
+    <p class="text-center">{{ $t(desc) }}</p>
 
     <div class="step-form flex flex-center">
         <div class="step-input">
@@ -24,7 +24,8 @@
                 :disabled="!firstName.length || !lastName.length" 
                 :style="{
                     'backgroundColor': (!firstName.length || !lastName.length)? 'grey' : '#429EF0', 
-                    'cursor': (!firstName.length || !lastName.length)? 'unset' : 'pointer'}">
+                    'cursor': (!firstName.length || !lastName.length)? 'unset' : 'pointer',
+                    'float': 'right'}">
                 <div>{{ $t('continue') }}</div>
                 <ChevronRight fillColor="#ffffff" />
             </button>
@@ -35,22 +36,21 @@
 
 <script>
 import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
-import axiosClient from '../axios.js'
 
 export default{
     props: {
         title: String,
-        desc: String
+        desc: String,
+        fields: Object
     },
     components: {
         ChevronRight
     },
-    emits: ['customMethod'],
+    emits: ['toNext'],
     data(){
         return{
             firstName: '',
             lastName: '',
-            error: false
         }
     },
     methods: {
@@ -59,21 +59,23 @@ export default{
             if(this.firstName.length && this.lastName.length){
                 this.returnToParent()
             }
-
-                // try {
-                //     let result = await axiosClient.post('5fd5b0a0-7cec-4ccf-bdec-b9c99c78e29f', { firstName: this.firstName, lastName: this.lastName })
-                //     console.log('result :>>>', result)
-
-                //     if(result.en){}
-                //     //                 
-                // } catch (error) {
-                //     console.log(error)
-                // }
         },
 
         returnToParent(){
-            this.$emit('customMethod', { firstName: this.firstName, lastName: this.lastName })
+            this.$emit('toNext', { firstName: this.firstName, lastName: this.lastName })
         }        
+    },
+    created(){
+        console.log('fields :>>>', this.$props.fields)
+
+        if(Object.keys(this.$props.fields).length){
+            
+            // Dynamic assign fields and value
+            for(const [key, val] of Object.entries(this.$props.fields)){
+                this[`${key}`] = val
+            }
+
+        }
     }
 }
 </script>

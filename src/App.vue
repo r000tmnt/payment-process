@@ -11,6 +11,8 @@
   import Step_2 from './components/step_2.vue';
 
   import { shallowRef } from 'vue';
+  import axiosClient from './axios';
+import { BADFLAGS } from 'dns';
 
   const step_1 = shallowRef(Step_1)
   const step_2 = shallowRef(Step_2)
@@ -26,14 +28,14 @@
       return{
         steps: [
           {
-            title: this.$i18n.t('data'),
-            desc: this.$i18n.t('data-desc'),
+            title: 'data',
+            desc: 'data-desc',
             component: step_1,
             finish: false
           },
           {
-            title: this.$i18n.t('pay'),
-            desc: this.$i18n.t('pay-desc'),
+            title: 'payment',
+            desc: 'payment-desc',
             component: step_2,
             finish: false
           }
@@ -41,8 +43,33 @@
       }
     },
     methods: {
-      toNextStep(step){
-        this.steps[step.index].finish = step.finish
+      toNextStep(val, index, finish){
+          
+        this.steps[index].finish = finish
+
+        // If the current step is the last one
+        if(index === (this.steps.length - 1)){
+          const payload = {}
+
+          val.forEach((field) => {
+            payload = { ...payload, ...field }
+          });
+
+          this.pushData(payload)          
+        }
+
+      },
+
+      async pushData(payload){
+        try {
+            let result = await axiosClient.post('5fd5b0a0-7cec-4ccf-bdec-b9c99c78e29f', payload)
+            console.log('result :>>>', result)
+
+            if(result.en){}
+            //                 
+        } catch (error) {
+            console.log(error)
+        }
       }
     }
   }

@@ -4,9 +4,9 @@
             <li v-for="(step, index) in steps" :key="step.title" class="flex">
                 <span class="step-count" :style="{'backgroundColor': step.finish ? '#60A917' : '#429EF0'}">
                     <span v-if="!step.finish" class="absolute">{{ index + 1 }}</span>
-                    <Check v-else class="absolute" />
+                    <Check v-else class="absolute" :size="36" />
                 </span>
-                <span class="step-title absolute">{{ step.title }}</span>
+                <span class="step-title absolute">{{ $t(step.title) }}</span>
                 <div v-if="(index + 1) !== steps.length" class="line"></div>
             </li>
         </ul>
@@ -18,7 +18,10 @@
                 :is="steps[currentStep - 1].component" 
                 :title="steps[currentStep - 1].title"
                 :desc="steps[currentStep - 1].desc"
-                @customMethod="customEvent"
+                :finish="steps[currentStep - 1].finish"
+                :fields="fields.length? fields[currentStep - 1] : {} "
+                @backToPrevious="currentStep += -1"
+                @toNext="proceed"
             ></component>
         </div>        
     </main>
@@ -39,15 +42,22 @@ export default{
     },
     data(){
         return{
-            currentStep: 1,
+            currentStep: 2,
+            fields: []
         }
     },
     emits: ['finishStep'],
     methods: {
-        customEvent(val){
-            if(val)
-                this.$emit('finishStep', { index: this.currentStep - 1, finish: true })
+        proceed(val = {}){
+            if(Object.keys(val).length){
+                this.fields[this.currentStep - 1] = val
+            }
+                
+            this.$emit('finishStep', this.fields, this.currentStep - 1, true )
+
+            if(this.currentStep !== this.$props.steps.length)
                 this.currentStep ++ 
+                
         }
     }
 }

@@ -3,9 +3,13 @@
     "signin": "登入",
     "data": "個人資料",
     "data-desc": "請輸入您的個人資料",
-    "pay": "付款",
-    "pay-desc": "付款過後您將會收到包含細節的確認信件",
+    "payment": "付款",
+    "payment-desc": "付款過後您將會收到包含細節的確認信件",
+    "payment-note": "你會移動到安全的付款平台，付款確認最多需要24小時.",
+    "credit-card": "信用卡",  
     "first-name": "名字",
     "last-name": "姓氏",
-    "continue": "繼續"
+    "continue": "繼續",
+    "back": "返回",
+    "pay": "付款"    
 }

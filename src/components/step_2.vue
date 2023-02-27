@@ -18,39 +18,41 @@
                                 result?.desc.cn :    
                             $t(desc) }}</p>
 
-    <div class="step-form flex flex-center">
+    <div class="flex flex-center">
 
         <div v-if="!finish" class="step-input flex-column text-center">
 
             <div class="step-form-note">
                 <CreditCardMultiple :size="48" />
-                <h2>{{ $t("credit-card") }}</h2>
+                <h2 style="margin-top: 0;">{{ $t("credit-card") }}</h2>
 
                 <span style="margin-bottom: 10px;">
                     {{ $t("payment-note") }}
                 </span>
                 
-                <div class="flex flex-around" style="margin: 13px 0 15px 0;">
+                <div class="flex flex-center" style="margin: 13px 0 15px 0;">
                     <img class="step-form-img" src="../assets/mastercard_logo.png" alt="mastercard">
                     <img class="step-form-img" src="../assets/visa_logo.png" alt="visa">
                 </div>
             </div>
 
-            <div>
+            <div style="padding-bottom: 50px;">
                 <button 
-                    class="step-form-button flex flex-center text-white" 
+                    class="step-form-button flex flex-center text-white"
+                    :class="!apiFired? 'button-active' : 'button-disable'" 
                     type="button" 
                     @click="$emit('backToPrevious')" 
-                    :style="{'background-color': apiFired? 'grey' : '#429EF0', 'float': 'left'}">
+                    style="float: left;">
                     <ChevronLeft class="prev absolute" fillColor="#ffffff" />
                     <div>{{ $t("back") }}</div>
                 </button>    
                 
                 <button 
-                    class="step-form-button flex flex-center text-white" 
+                    class="step-form-button flex flex-center text-white"
+                    :class="!apiFired? 'button-active' : 'button-disable'"
                     type="button"  
                     @click="complete"
-                    :style="{'background-color': apiFired? 'grey' : '#429EF0', 'float': 'right'}">
+                    style="float: right;">
                     <div>{{ $t('pay') }}</div>
                     <ChevronRight class="next absolute" fillColor="#ffffff" />
                 </button>            

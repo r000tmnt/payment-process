@@ -50,6 +50,7 @@ header {
         margin: 0 10px;
         position: relative;
         font-size: 20px;
+        transition: color 0.1s ease-in-out;
 
         span{
           top: 50%;
@@ -70,6 +71,8 @@ header {
   background-color: #ffffff;
   width: 80%;
   transition: width 0.5s ease-in-out;
+  padding-bottom: 50px;
+  box-shadow: 5px 5px 2px #B6B6B6;
 
   @media screen and (max-width: 700px) {
     width: 100%;
@@ -109,7 +112,8 @@ header {
 }
 
 .step-form-img{
-  width: 100px;
+  width: 50px;
+  margin: 0 1%;
 }
 
 .step-form-button{
@@ -122,6 +126,18 @@ header {
   div{
     margin-top: 2px;
   }
+}
+
+.button-active{
+  border: 1px solid #199EDF;
+  background-color: #429EF0;
+  cursor: pointer;
+  box-shadow: 3px 3px 2px #B6B6B6;
+}
+
+.button-disable{
+  border: 1px solid grey;
+  background-color: grey;
 }
 
 .prev{

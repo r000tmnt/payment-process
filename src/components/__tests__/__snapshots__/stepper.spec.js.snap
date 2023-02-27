@@ -1,0 +1,56 @@
+// Vitest Snapshot v1
+
+exports[`StepperView > Should fill the first name nd last name 1`] = `
+"<header class=\\"flex flex-right\\">
+  <div class=\\"button-set\\"><span aria-hidden=\\"true\\" class=\\"material-design-icon help-circle-outline-icon\\" role=\\"img\\"><svg fill=\\"#429EF0\\" class=\\"material-design-icon__svg\\" width=\\"36\\" height=\\"36\\" viewBox=\\"0 0 24 24\\"><path d=\\"M11,18H13V16H11V18M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,6A4,4 0 0,0 8,10H10A2,2 0 0,1 12,8A2,2 0 0,1 14,10C14,12 11,11.75 11,15H13C13,12.75 16,12.5 16,10A4,4 0 0,0 12,6Z\\"><!--v-if--></path></svg></span><button type=\\"button\\" class=\\"header-button\\">help</button></div>
+  <div class=\\"button-set\\"><span aria-hidden=\\"true\\" class=\\"material-design-icon account-circle-outline-icon\\" role=\\"img\\"><svg fill=\\"#429EF0\\" class=\\"material-design-icon__svg\\" width=\\"36\\" height=\\"36\\" viewBox=\\"0 0 24 24\\"><path d=\\"M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M7.07,18.28C7.5,17.38 10.12,16.5 12,16.5C13.88,16.5 16.5,17.38 16.93,18.28C15.57,19.36 13.86,20 12,20C10.14,20 8.43,19.36 7.07,18.28M18.36,16.83C16.93,15.09 13.46,14.5 12,14.5C10.54,14.5 7.07,15.09 5.64,16.83C4.62,15.5 4,13.82 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,13.82 19.38,15.5 18.36,16.83M12,6C10.06,6 8.5,7.56 8.5,9.5C8.5,11.44 10.06,13 12,13C13.94,13 15.5,11.44 15.5,9.5C15.5,7.56 13.94,6 12,6M12,11A1.5,1.5 0 0,1 10.5,9.5A1.5,1.5 0 0,1 12,8A1.5,1.5 0 0,1 13.5,9.5A1.5,1.5 0 0,1 12,11Z\\"><!--v-if--></path></svg></span><button type=\\"button\\" class=\\"header-button\\">signin</button></div>
+  <div class=\\"button-set\\"><span aria-hidden=\\"true\\" class=\\"material-design-icon flag-variant-outline-icon\\" role=\\"img\\"><svg fill=\\"#429EF0\\" class=\\"material-design-icon__svg\\" width=\\"36\\" height=\\"36\\" viewBox=\\"0 0 24 24\\"><path d=\\"M6,3A1,1 0 0,1 7,4V4.88C8.06,4.44 9.5,4 11,4C14,4 14,6 16,6C19,6 20,4 20,4V12C20,12 19,14 16,14C13,14 13,12 11,12C8,12 7,14 7,14V21H5V4A1,1 0 0,1 6,3M7,7.25V11.5C7,11.5 9,10 11,10C13,10 14,12 16,12C18,12 18,11 18,11V7.5C18,7.5 17,8 16,8C14,8 13,6 11,6C9,6 7,7.25 7,7.25Z\\"><!--v-if--></path></svg></span><button type=\\"button\\" class=\\"header-button\\"></button><span aria-hidden=\\"true\\" class=\\"material-design-icon chevron-down-icon\\" role=\\"img\\"><svg fill=\\"#429EF0\\" class=\\"material-design-icon__svg\\" width=\\"36\\" height=\\"36\\" viewBox=\\"0 0 24 24\\"><path d=\\"M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z\\"><!--v-if--></path></svg></span>
+    <!--v-if-->
+  </div>
+</header>
+<div id=\\"steps\\">
+  <ul class=\\"flex flex-center\\">
+    <li class=\\"flex\\"><span class=\\"step-count\\" style=\\"background-color: rgb(66, 158, 240);\\"><span class=\\"absolute\\">1</span></span><span class=\\"step-title absolute\\">data</span>
+      <div class=\\"line\\"></div>
+    </li>
+    <li class=\\"flex\\"><span class=\\"step-count\\" style=\\"background-color: rgb(66, 158, 240);\\"><span class=\\"absolute\\">2</span></span><span class=\\"step-title absolute\\">payment</span>
+      <!--v-if-->
+    </li>
+  </ul>
+</div>
+<main class=\\"flex flex-center\\">
+  <div id=\\"step-content\\">
+    <h1 class=\\"text-center\\">data</h1>
+    <p class=\\"text-center\\">data-desc</p>
+    <div class=\\"step-form flex flex-center\\">
+      <div class=\\"step-form-content\\"><label class=\\"step-input-label\\" for=\\"firstName\\">first-name <span class=\\"require\\">*</span></label><input class=\\"step-input\\" type=\\"text\\" name=\\"firstName\\" required=\\"\\"><label class=\\"step-input-label\\" for=\\"lastName\\">last-name <span class=\\"require\\">*</span></label><input class=\\"step-input\\" type=\\"text\\" name=\\"lastName\\" required=\\"\\"><button class=\\"step-form-button flex flex-center text-white button-disable\\" type=\\"button\\" disabled=\\"\\" style=\\"float: right;\\">
+          <div>continue</div><span class=\\"next absolute material-design-icon chevron-right-icon next absolute\\" aria-hidden=\\"true\\" role=\\"img\\"><svg fill=\\"#ffffff\\" class=\\"material-design-icon__svg\\" width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\"><path d=\\"M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z\\"><!--v-if--></path></svg></span>
+        </button></div>
+    </div>
+  </div>
+</main>"
+`;
+
+exports[`StepperView > Should fill the first name nd last name 2`] = `
+"<div id=\\"steps\\">
+  <ul class=\\"flex flex-center\\">
+    <li class=\\"flex\\"><span class=\\"step-count\\" style=\\"background-color: rgb(66, 158, 240);\\"><span class=\\"absolute\\">1</span></span><span class=\\"step-title absolute\\">data</span>
+      <div class=\\"line\\"></div>
+    </li>
+    <li class=\\"flex\\"><span class=\\"step-count\\" style=\\"background-color: rgb(66, 158, 240);\\"><span class=\\"absolute\\">2</span></span><span class=\\"step-title absolute\\">payment</span>
+      <!--v-if-->
+    </li>
+  </ul>
+</div>
+<main class=\\"flex flex-center\\">
+  <div id=\\"step-content\\">
+    <h1 class=\\"text-center\\">data</h1>
+    <p class=\\"text-center\\">data-desc</p>
+    <div class=\\"step-form flex flex-center\\">
+      <div class=\\"step-form-content\\"><label class=\\"step-input-label\\" for=\\"firstName\\">first-name <span class=\\"require\\">*</span></label><input class=\\"step-input\\" type=\\"text\\" name=\\"firstName\\" required=\\"\\"><label class=\\"step-input-label\\" for=\\"lastName\\">last-name <span class=\\"require\\">*</span></label><input class=\\"step-input\\" type=\\"text\\" name=\\"lastName\\" required=\\"\\"><button class=\\"step-form-button flex flex-center text-white button-disable\\" type=\\"button\\" disabled=\\"\\" style=\\"float: right;\\">
+          <div>continue</div><span class=\\"next absolute material-design-icon chevron-right-icon next absolute\\" aria-hidden=\\"true\\" role=\\"img\\"><svg fill=\\"#ffffff\\" class=\\"material-design-icon__svg\\" width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\"><path d=\\"M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z\\"><!--v-if--></path></svg></span>
+        </button></div>
+    </div>
+  </div>
+</main>"
+`;

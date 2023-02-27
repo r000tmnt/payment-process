@@ -11,7 +11,7 @@
   import Step_2 from './components/step_2.vue';
 
   import { shallowRef } from 'vue';
-  import axiosClient from './axios';
+  import axios from 'axios';
 
   const step_1 = shallowRef(Step_1)
   const step_2 = shallowRef(Step_2)
@@ -61,21 +61,23 @@
 
       async pushData(payload){
         try {
-            let result = await axiosClient.post('5fd5b0a0-7cec-4ccf-bdec-b9c99c78e29f', payload)
+            let result = await axios.post('https://run.mocky.io/v3/5fd5b0a0-7cec-4ccf-bdec-b9c99c78e29f', payload)
             // console.log('result :>>>', result)
 
-            this.result = {
-              title: {
-                en: result.title.en,
-                cn: result.title.zh_CN
-              },
-              desc: {
-                en: result.message.en,
-                cn: result.message.zh_CN
+            if(result.data){
+              this.result = {
+                title: {
+                  en: result.data.title.en,
+                  cn: result.data.title.zh_CN
+                },
+                desc: {
+                  en: result.data.message.en,
+                  cn: result.data.message.zh_CN
+                }
               }
-            }
 
-            this.steps[ this.steps.length - 1 ].finish = true
+              this.steps[ this.steps.length - 1 ].finish = true
+            }
 
         } catch (error) {
             console.log(error)

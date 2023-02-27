@@ -18,14 +18,12 @@
             <input class="step-input" type="text" name="lastName" v-model="lastName" required/>
             
             <button 
-                class="step-form-button flex flex-center text-white" 
+                class="step-form-button flex flex-center text-white"
+                :class="firstName.length && lastName.length? 'button-active' : 'button-disable'" 
                 type="button" 
                 @click="checkInputValue" 
                 :disabled="!firstName.length || !lastName.length" 
-                :style="{
-                    'backgroundColor': (!firstName.length || !lastName.length)? 'grey' : '#429EF0', 
-                    'cursor': (!firstName.length || !lastName.length)? 'unset' : 'pointer',
-                    'float': 'right'}">
+                style="float: right;">
                 <div>{{ $t('continue') }}</div>
                 <ChevronRight class="next absolute" fillColor="#ffffff" />
             </button>

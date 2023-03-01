@@ -5,6 +5,7 @@
 
     <p class="text-center">{{ $t(desc) }}</p>
 
+    <!-- Form starts here -->
     <div class="step-form flex flex-center">
         <div class="step-form-content">
             <label class="step-input-label" for="firstName">
@@ -54,17 +55,20 @@ export default{
         }
     },
     methods: {
-        async checkInputValue(){
+        // Check input values
+        checkInputValue(){
             // console.log('click')
             if(this.firstName.length && this.lastName.length){
                 this.returnToParent()
             }
         },
 
+        // Pass the data to parent component
         returnToParent(){
             this.$emit('toNext', { firstName: this.firstName, lastName: this.lastName })
         }        
     },
+    // if property exists, rewrite the data to previous state
     created(){
         if(Object.keys(this.$props.fields).length){
             

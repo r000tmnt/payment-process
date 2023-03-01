@@ -1,4 +1,5 @@
 <template>
+     <!-- stepper header -->
     <div id="steps">
         <ul class="flex flex-center">
             <li v-for="(step, index) in steps" :key="step.title" class="flex">
@@ -12,8 +13,17 @@
         </ul>
     </div>
 
+    <!-- stepper content -->
     <main class="flex flex-center">
         <div id="step-content">
+            <!-- 
+                assign component dynamically.
+                pass down title, desc for inner text,
+                fields is a data live in the steepr wrapper to maintain the value for current component (if any).
+                result if the data return from api.
+                backToPrevious will decrease the step count by one,
+                toNext will pass the value back to parent component and increase the step count by one.
+            -->
             <component
                 :is="steps[currentStep - 1].component" 
                 :title="steps[currentStep - 1].title"

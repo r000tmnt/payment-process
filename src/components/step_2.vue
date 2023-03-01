@@ -1,4 +1,5 @@
 <template>
+    <!-- Both title and desc will change if the first part of step 2 is complete -->
     <h1 class="text-center">
         {{ finish?
             $i18n.locale === 'EN'? 
@@ -20,6 +21,7 @@
 
     <div class="flex flex-center">
 
+        <!-- The content for step 2, first part -->
         <div v-if="!finish" class="step-input flex-column text-center">
 
             <div class="step-form-note">
@@ -36,6 +38,7 @@
                 </div>
             </div>
 
+            <!-- The buttons to chnage current step and finish the step -->
             <div style="padding-bottom: 50px;">
                 <button id="prev"
                     class="step-form-button flex flex-center text-white"

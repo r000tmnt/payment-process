@@ -1,6 +1,10 @@
 <template>
   <Header :lang="$i18n.locale"></Header>
 
+  <!-- 
+    stpes is an array contain with various property. 
+    FinishStep is a emit event for final step, which will change the value for result props to display 
+  -->
   <Stepper :steps="steps" @finishStep="toNextStep" :result="result" />
 </template>
 
@@ -25,6 +29,15 @@
     },
     data(){
       return{
+        // 
+        open: false,
+
+        /* 
+          title: the name of the step
+          desc: deacription of the step,
+          component: the content of the step
+          finish: a boolean to decide if the step if done or not
+        */
         steps: [
           {
             title: 'data',
@@ -39,6 +52,9 @@
             finish: false
           }
         ],
+        /*
+          the final result to display
+        */
         result: {}
       }
     },
@@ -53,6 +69,7 @@
             payload = { ...payload, ...field }
           });
 
+          // calling api
           this.pushData(payload)          
         }else{
           this.steps[index].finish = finish
@@ -65,6 +82,7 @@
             // console.log('result :>>>', result)
 
             if(result.data){
+              // Rewtire the result to pass down as props
               this.result = {
                 title: {
                   en: result.data.title.en,

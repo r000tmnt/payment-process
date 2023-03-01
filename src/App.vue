@@ -1,11 +1,13 @@
 <template>
-  <Header :lang="$i18n.locale"></Header>
+  <div @click="ifOpen" class="h-100">
+    <Header :lang="$i18n.locale" :open="open" @openSelection="openCustomLanguageSelect"></Header>
 
-  <!-- 
-    stpes is an array contain with various property. 
-    FinishStep is a emit event for final step, which will change the value for result props to display 
-  -->
-  <Stepper :steps="steps" @finishStep="toNextStep" :result="result" />
+    <!-- 
+      stpes is an array contain with various property. 
+      FinishStep is a emit event for final step, which will change the value for result props to display 
+    -->
+    <Stepper :steps="steps" @finishStep="toNextStep" :result="result" />    
+  </div>
 </template>
 
 <script>
@@ -29,7 +31,7 @@
     },
     data(){
       return{
-        // 
+        // Wether to open the language selection or not
         open: false,
 
         /* 
@@ -59,6 +61,14 @@
       }
     },
     methods: {
+      ifOpen(){
+        if(this.open) this.open = false
+      },
+
+      openCustomLanguageSelect(open){
+        this.open = open
+      },
+
       toNextStep(val, index, finish){
           
         // If the current step is the last one

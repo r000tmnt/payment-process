@@ -18,7 +18,7 @@
     </div>
 
     <!-- A custom select element for localization -->
-    <div id="language" class="button-set" ref="selectRef" @click="openLanguageSelect">
+    <div id="language" class="button-set" ref="selectRef" @click.stop="$emit('openSelection', true)">
       <FlagVariantOutline fillColor="#429EF0" :size="36" />
       <button type="button" class="header-button">
         {{ lang }}
@@ -29,7 +29,7 @@
       <aside v-if="open" class="drop-down absolute " :style="{'width': $refs.selectRef.clientWidth + 'px'}">
         <ul>
           <!-- Perform a loop to generate options -->
-          <li v-for="language in languageOptions" @click="changeLanguage(language)" :key="language">
+          <li class="lang" v-for="language in languageOptions" @click.stop="changeLanguage(language)" :key="language">
             <span :id="language" style="padding-top: 6px;">{{ language }}</span>
             <ChevronDown v-if="language === lang" fillColor="#429EF0" :size="36" style="margin-left: auto;" />
           </li>
@@ -50,7 +50,8 @@ import FlagVariantOutline from 'vue-material-design-icons/FlagVariantOutline.vue
 
 export default {
   props: {
-    lang: String
+    lang: String,
+    open: Boolean
   },
   components: {
     HelpCircleOutline,
@@ -61,17 +62,12 @@ export default {
   data(){
     return {
       languageOptions: ['EN', 'CN'],
-      open: false,
-      selectWidth: 0
     }
   },
   methods: {
-    openLanguageSelect(){
-      this.open = !this.open
-    },
-
     changeLanguage(language){
       this.$i18n.locale = language
+      this.$emit('openSelection', false)
     }
   }
 }

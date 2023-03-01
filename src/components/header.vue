@@ -15,7 +15,7 @@
       </button>           
     </div>
 
-    <div class="button-set" ref="selectRef" @click="openLanguageSelect">
+    <div id="language" class="button-set" ref="selectRef" @click="openLanguageSelect">
       <FlagVariantOutline fillColor="#429EF0" :size="36" />
       <button type="button" class="header-button">
         {{ lang }}
@@ -24,8 +24,8 @@
 
       <aside v-if="open" class="drop-down absolute " :style="{'width': $refs.selectRef.clientWidth + 'px'}">
         <ul>
-          <li v-for="language in languageOptions" @click="changeLanguage(language)">
-            <span style="padding-top: 6px;">{{ language }}</span>
+          <li v-for="language in languageOptions" @click="changeLanguage(language)" :key="language">
+            <span :id="language" style="padding-top: 6px;">{{ language }}</span>
             <ChevronDown v-if="language === lang" fillColor="#429EF0" :size="36" style="margin-left: auto;" />
           </li>
         </ul>

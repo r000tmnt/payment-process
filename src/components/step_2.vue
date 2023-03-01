@@ -37,7 +37,7 @@
             </div>
 
             <div style="padding-bottom: 50px;">
-                <button 
+                <button id="prev"
                     class="step-form-button flex flex-center text-white"
                     :class="!apiFired? 'button-active' : 'button-disable'" 
                     type="button" 
@@ -47,7 +47,7 @@
                     <div>{{ $t("back") }}</div>
                 </button>    
                 
-                <button 
+                <button id="next"
                     class="step-form-button flex flex-center text-white"
                     :class="!apiFired? 'button-active' : 'button-disable'"
                     type="button"  
@@ -73,6 +73,7 @@ export default{
         title: String,
         desc: String,
         finish: Boolean,
+        fields: null,
         result: Object
     },
     components: {

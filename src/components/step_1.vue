@@ -41,7 +41,7 @@ export default{
         desc: String,
         fields: Object,
         finish: Boolean,
-        result: Object        
+        result: null        
     },
     components: {
         ChevronRight
@@ -66,8 +66,6 @@ export default{
         }        
     },
     created(){
-        console.log('fields :>>>', this.$props.fields)
-
         if(Object.keys(this.$props.fields).length){
             
             // Dynamic assign fields and value

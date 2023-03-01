@@ -1,14 +1,14 @@
-import { describe, it, expect, vi, beforeAll } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 
 import { mount } from '@vue/test-utils'
-import axios from 'axios'
+// import axios from 'axios'
 import AppView from '../../App.vue'
 import HeaderView from '../header.vue'
 import stepper from '../stepper.vue'
 import step_1 from '../step_1.vue'
 import step_2 from '../step_2.vue'
 
-vi.mock("axios")
+// vi.mock("axios")
 
 
 const stepperProps = { 
@@ -29,54 +29,104 @@ const stepperProps = {
   result: {}
 } 
 
+const wrapper = mount(AppView, {props: stepperProps})
+const header = wrapper.findComponent(HeaderView)
+const app = wrapper.findComponent(stepper)
+const currentLang = header.find('div[id="language"]')
+const first_step = app.findComponent(step_1)
+const nextBtn = first_step.find('button')
+
 describe("StepperView", () => {
-  it('Should fill the first name nd last name', async() => {
-    const wrapper = mount(AppView, {props: stepperProps})
+  it('Should see a heder on top right corner', () => {
+    expect(header.exists()).toBeTruthy()
+  })
 
-    const app = wrapper.findComponent(stepper)
+  it('Find the language select button', () => {
+    expect(currentLang.exists()).toBeTruthy()
+  })
 
-    expect(wrapper.html()).toMatchSnapshot()
-    expect(app.html()).toMatchSnapshot()
+  it('Should open language options', () => {
+    currentLang.trigger('click')
 
-    await app.find('input[name=firstName]').setValue('Rick')
-    await app.find('input[name=lastName]').setValue('Lee')
-    const nextBtn = wrapper.find('button.step-form-button')
+    app.vm.$nextTick(() => {
+      const options = currentLang.find('aside')
+      expect(options.exists()).toBeTruthy()
+    })
+  })
 
-    expect(app.vm.$data.firstName).toBe('Rick')
-    expect(app.vm.$data.lastName).toBe('Lee')
+  it('Change language to Chinese', () => {
+    const optionsModal = currentLang.find('aside')
+    const cnBtn = optionsModal.find('span[id="CN"]')
 
-    // nextBtn.trigger('click')
+    expect(cnBtn.exists()).toBeTruthy()
 
-    // expect(app.emmited('toNext')).equal
+    cnBtn.trigger('click')
+
+    app.vm.$nextTick(() => {
+      expect(app.vm.$i18n.locale).toEqual('CN')
+    })
+  })
+
+  it('Change language to English', () => {
+    currentLang.trigger('click')
+
+    app.vm.$nextTick(() => {
+      const optionsModal = currentLang.find('aside')
+      const enBtn = optionsModal.find('span[id="EN"]')
+  
+      expect(enBtn.exists()).toBeTruthy()
+  
+      enBtn.trigger('click')
+
+      app.vm.$nextTick(() => {
+        expect(app.vm.$i18n.locale).toEqual('EN')
+      })
+      
+    })
+  })
+
+  it('Should find the steppr component', () => {
+    expect(app.exists()).toBeTruthy()
+  })
+
+  it('Should start with first step and fill the inputs', async() => {
+
+    expect(first_step.exists()).toBeTruthy()
+
+    await app.find('input[name="firstName"]').setValue('Rick')
+    await app.find('input[name="lastName"]').setValue('Lee')
+    
+    expect(first_step.vm.firstName).toEqual('Rick')
+    expect(first_step.vm.lastName).toEqual('Lee')
+  })
+
+  it('Should complete the first step and move to the next', async() => {
+
+    nextBtn.trigger('click')
+    expect(nextBtn.exists()).toBeTruthy()
+
+    app.vm.$nextTick(() => {
+      const second_step = app.findComponent(step_2)  
+      expect(second_step.exists()).toBeTruthy()
+    })
+  })
+
+  it('Should move back to the first step', async() => {
+
+    const second_step = app.findComponent(step_2)  
+  
+    const prevBtn = second_step.find('button[id="prev"]')
+    expect(prevBtn.exists()).toBeTruthy()
+  })  
+
+  it('Should complete the second step', async() => {
+    const second_step = app.findComponent(step_2)  
+    const finalBtn = second_step.find('button[id="next"]')
+    expect(finalBtn.exists()).toBeTruthy()
+    finalBtn.trigger('click')
+    
+    app.vm.$nextTick(() => {
+      expect(second_step.vm.apiFired).toEqual(true)
+    })   
   })
 })
-
-
-// describe('Step 1', () => {
-//   it('Return first name and last name', () => {
-//     const wrapper = mount(stepper, { 
-//       props: stepperProps
-//     })
-
-//     const first_name = wrapper.find('input[name=firstName]')
-//     const last_name = wrapper.find('input[name=lastName]')
-//     const nextBtn = wrapper.find('button.step-form-button')
-
-//     wrapper.setData({
-//       firstName: '',
-//       lastName: '',      
-//     })
-
-//     first_name.setValue('Rick')
-//     last_name.setValue('Lee')
-//     nextBtn.trigger('click')
-
-//     expect(wrapper.emitted('toNext')).toEqual(
-//       { 
-//         firstName: 'Rick', 
-//         lastName: 'Lee' 
-//       }      
-//     )
-
-//   })
-// })

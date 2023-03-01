@@ -2,7 +2,7 @@
 
 body{
   background-color: #F0F0F0;
-  // padding:  0 5%;
+  overflow-y: hidden;
   font-family: 'Noto Sans TC', sans-serif;
   margin: 0;
   padding: 0;
@@ -81,7 +81,7 @@ header {
   background-color: #ffffff;
   width: 80%;
   transition: width 0.5s ease-in-out;
-  padding-bottom: 50px;
+  padding: 0 10px 50px 10px;
   box-shadow: 5px 5px 2px #B6B6B6;
 
   @media screen and (max-width: 700px) {
@@ -100,7 +100,7 @@ header {
     }
 
     .step-input{
-      width: 100%;
+      width: 98%;
       height: 30px;
       border-radius: 8px;
       border: 2px solid lightgrey;
@@ -119,6 +119,10 @@ header {
   border: 1px solid #F1F1F1;
   padding: 10px 20px;
   margin-bottom: 20px;
+
+  @media screen and (max-width: 550px) {
+    width: unset;
+  }
 }
 
 .step-form-img{

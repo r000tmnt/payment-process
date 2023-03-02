@@ -5,7 +5,7 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/payment-process/',
+  base: '/payment_process/',
   plugins: [vue()],
   resolve: {
     alias: {

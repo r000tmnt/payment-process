@@ -25,8 +25,8 @@ jobs:
       - name: Prepare SSH # 設定 ssh
         run: >
           cd ~ && mkdir .ssh &&
-          touch ~/.ssh/known_hosts &&
-          ssh-keyscan -H "${{ secrets.TEST_DEPLOY_SERVER_IP }}" >>~/.ssh/known_hosts
+          cd .ssh && touch known_hosts &&
+          ssh-keyscan -H "${{ secrets.TEST_DEPLOY_SERVER_IP }}" >>known_hosts
 
       - name: Build # 打包專案
         run: npm run build

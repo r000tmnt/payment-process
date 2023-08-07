@@ -39,11 +39,10 @@ jobs:
         run: npm run build
 
       - name: Deploy to Windows Server
-        run: rsync -avz ./dist/ ${{ secrets.TEST_DEPLOY_USER }}@${{ secrets.TEST_DEPLOY_SERVER_IP }}:C:/CEISWeb/TestCEStudio
-        # uses: sebastianjnuwu/ssh-action-deploy@v1
-        # with:
-        #   IP: ${{ secrets.TEST_DEPLOY_SERVER_IP }}
-        #   USER: ${{ secrets.TEST_DEPLOY_USER }}
-        #   KEY: ${{ secrets.TEST_DEPLOY_KEY }}
-        #   FOLDER: "C:\\CEISWeb\\TestCEStudio"
-        #   RUN: 'ls -a; pwd'
+        uses: sebastianjnuwu/ssh-action-deploy@v1
+        with:
+          IP: ${{ secrets.TEST_DEPLOY_SERVER_IP }}
+          USER: ${{ secrets.TEST_DEPLOY_USER }}
+          KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          FOLDER: "C:\\CEISWeb\\TestCEStudio"
+          RUN: 'ls -a; pwd'

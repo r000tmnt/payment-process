@@ -22,9 +22,9 @@ jobs:
       - name: Install dependencies # 安裝專案依賴的元件
         run: npm install
 
-      - name: Set up rsync # 設定 rsync
-        uses: GuillaumeFalourd/setup-rsync@v1.1
-        run: rsync --version
+      # 設定 rsync
+      - uses: GuillaumeFalourd/setup-rsync@v1.1
+      - run: rsync --version
 
       - name: Set up SSH key # 設定 ssh
         uses: shimataro/ssh-key-action@v2

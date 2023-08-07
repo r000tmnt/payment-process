@@ -22,6 +22,10 @@ jobs:
       - name: Install dependencies # 安裝專案依賴的元件
         run: npm install
 
+      - name: Set up rsync # 設定 rsync
+      - uses: GuillaumeFalourd/setup-rsync@v1.1
+      - run: rsync --version
+
       - name: Set up SSH key # 設定 ssh
         uses: shimataro/ssh-key-action@v2
         with:
@@ -32,17 +36,18 @@ jobs:
 
       - name: Prepare SSH # 設定 ssh
         run: >
-          cd ~/.ssh && touch known_hosts &&
+          cd ~/.ssh && touch known_hosts && ls && echo ssh.key &&
           ssh-keyscan -H "${{ secrets.TEST_DEPLOY_SERVER_IP }}" >>known_hosts && chmod 600 ssh.key
 
       - name: Build # 打包專案
         run: npm run build
 
       - name: Deploy to Windows Server
-        uses: sebastianjnuwu/ssh-action-deploy@v1
-        with:
-          IP: ${{ secrets.TEST_DEPLOY_SERVER_IP }}
-          USER: ${{ secrets.TEST_DEPLOY_USER }}
-          KEY: ${{ secrets.TEST_DEPLOY_KEY }}
-          FOLDER: "C:\\CEISWeb\\TestCEStudio"
-          RUN: 'ls -a; pwd'
+        run: rsync -avz ./dist/ ${{ secrets.TEST_DEPLOY_USER }}@${{ secrets.TEST_DEPLOY_SERVER_IP }}:C:/CEISWeb/TestCEStudio
+        # uses: sebastianjnuwu/ssh-action-deploy@v1
+        # with:
+        #   IP: ${{ secrets.TEST_DEPLOY_SERVER_IP }}
+        #   USER: ${{ secrets.TEST_DEPLOY_USER }}
+        #   KEY: ${{ secrets.TEST_DEPLOY_KEY }}
+        #   FOLDER: "C:\\CEISWeb\\TestCEStudio"
+        #   RUN: 'ls -a; pwd'

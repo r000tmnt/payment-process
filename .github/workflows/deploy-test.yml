@@ -27,7 +27,7 @@ jobs:
           cd ~ && mkdir .ssh &&
           cd .ssh && touch known_hosts && touch id_rsa &&
           ssh-keyscan -H "${{ secrets.TEST_DEPLOY_SERVER_IP }}" >>known_hosts &&
-          base64 -d <<< "${{ secrets.SSH_PRIVATE_KEY }}" > id_rsa
+          base64 -d "${{ secrets.SSH_PRIVATE_KEY }}" > id_rsa
 
       - name: Build # 打包專案
         run: npm run build

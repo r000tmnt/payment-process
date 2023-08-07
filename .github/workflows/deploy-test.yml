@@ -32,7 +32,7 @@ jobs:
 
       - name: Prepare SSH # 設定 ssh
         run: >
-          cd ~/.ssh && touch known_hosts && ls &&
+          cd ~/.ssh && touch known_hosts && ls && ssh -T ${{ secrets.TEST_DEPLOY_USER }}@${{ secrets.TEST_DEPLOY_SERVER_IP }} &&
           ssh-keyscan -H "${{ secrets.TEST_DEPLOY_SERVER_IP }}" >>known_hosts && chmod 600 ssh.key
 
       - name: Build # 打包專案

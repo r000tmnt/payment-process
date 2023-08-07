@@ -1,0 +1,35 @@
+name: Deploy to Windows Server
+
+on:
+  push:
+    branches:
+      - master  # 更改為你的主要分支名稱
+
+jobs:
+  build-and-deploy:
+    runs-on: windows-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        
+      - name: Setup Node # 安裝 node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - name: Install dependencies # 安裝專案依賴的元件
+        run: npm install
+
+      - name: Build # 打包專案
+        run: npm run build
+
+      - name: Deploy to Windows Server
+        uses: sebastianjnuwu/ssh-action-deploy@v1
+        with:
+          IP: ${{ secrets.TEST_DEPLOY_SERVER_IP }}
+          USER: ${{ secrets.TEST_DEPLOY_USER }}
+          KEY: ${{ secrets.TEST_DEPLOY_KEY }}
+          FOLDER: "C:\\CEISWeb\\TestCEStudio"
+          RUN: 'ls -a; pwd'

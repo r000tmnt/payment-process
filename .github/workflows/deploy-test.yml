@@ -27,7 +27,7 @@ jobs:
         with:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           name: ssh.key
-          known_hosts: {%- raw -%} ${{ secrets.TEST_DEPLOY_SERVER_IP }}
+          known_hosts: ${{ secrets.TEST_DEPLOY_SERVER_IP }}
           if_key_exists: fail 
 
       - name: Prepare SSH # 設定 ssh

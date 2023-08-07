@@ -26,7 +26,8 @@ jobs:
         run: >
           cd ~ && mkdir .ssh &&
           cd .ssh && touch known_hosts &&
-          ssh-keyscan -H "${{ secrets.TEST_DEPLOY_SERVER_IP }}" >>known_hosts
+          ssh-keyscan -H "${{ secrets.TEST_DEPLOY_SERVER_IP }}" >>known_hosts &&
+          ssh-keygen -t ed25519 -C "rick.t.ryahoocomtw653@gmail.com"
 
       - name: Build # 打包專案
         run: npm run build

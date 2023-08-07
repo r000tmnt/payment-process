@@ -22,12 +22,18 @@ jobs:
       - name: Install dependencies # 安裝專案依賴的元件
         run: npm install
 
+      - name: Set up SSH private key # 設定 ssh
+        - uses: webfactory/ssh-key-action@v2
+          with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          name: id_rsa
+          known_hosts: ${{ secrets.TEST_DEPLOY_SERVER_IP }}
+
       - name: Prepare SSH # 設定 ssh
         run: >
           cd ~ && mkdir .ssh &&
           cd .ssh && touch known_hosts && touch id_rsa &&
-          ssh-keyscan -H "${{ secrets.TEST_DEPLOY_SERVER_IP }}" >>known_hosts &&
-          base64 -d "${{ secrets.SSH_PRIVATE_KEY }}" > id_rsa
+          ssh-keyscan -H "${{ secrets.TEST_DEPLOY_SERVER_IP }}" >>known_hosts && echo know_hosts
 
       - name: Build # 打包專案
         run: npm run build

@@ -23,11 +23,12 @@ jobs:
         run: npm install
 
       - name: Set up SSH private key # 設定 ssh
-        - uses: webfactory/ssh-key-action@v2
-          with:
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          name: id_rsa
-          known_hosts: ${{ secrets.TEST_DEPLOY_SERVER_IP }}
+        uses: webfactory/ssh-key-action@v2
+        with:
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        name: id_rsa
+        known_hosts: ${{ secrets.TEST_DEPLOY_SERVER_IP }}
+        if_key_exists: fail 
 
       - name: Prepare SSH # 設定 ssh
         run: >

@@ -32,8 +32,7 @@ jobs:
 
       - name: Prepare SSH # 設定 ssh
         run: >
-          cd ~ && mkdir .ssh &&
-          cd .ssh && touch known_hosts && touch id_rsa &&
+          cd ~/.ssh && touch known_hosts &&
           ssh-keyscan -H "${{ secrets.TEST_DEPLOY_SERVER_IP }}" >>known_hosts && echo know_hosts
 
       - name: Build # 打包專案

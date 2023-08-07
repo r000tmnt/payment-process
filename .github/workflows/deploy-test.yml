@@ -22,14 +22,10 @@ jobs:
       - name: Install dependencies # 安裝專案依賴的元件
         run: npm install
 
-      # 設定 rsync
-      - uses: GuillaumeFalourd/setup-rsync@v1.1
-      - run: rsync --version
-
       - name: Set up SSH key # 設定 ssh
         uses: shimataro/ssh-key-action@v2
         with:
-          key: ${{ secrets.SSH_PUBLIC_KEY  }}
+          key: ${{ secrets.SSH_PUBLIC_KEY }}
           name: ssh.key
           known_hosts: ${{ secrets.TEST_DEPLOY_SERVER_IP }}
           if_key_exists: fail 
@@ -42,8 +38,12 @@ jobs:
       - name: Build # 打包專案
         run: npm run build
 
-      - name: Deploy to Windows Server
-        run: rsync -avz ./dist/ ${{ secrets.TEST_DEPLOY_USER }}@${{ secrets.TEST_DEPLOY_SERVER_IP }}:C:/CEISWeb/TestCEStudio
+      # Deploy to Windows Server
+      - uses: up9cloud/action-rsync@master
+        env:
+          HOST: ${{ secrets.TEST_DEPLOY_SERVER_IP }} # 網址或是 ip 位置
+          KEY: ${{ secrets.SSH_PUBLIC_KEY }} # ssh private key
+          TARGET: /dist/ # 要推送的目標位置
         # uses: sebastianjnuwu/ssh-action-deploy@v1
         # with:
         #   IP: ${{ secrets.TEST_DEPLOY_SERVER_IP }}

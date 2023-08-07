@@ -23,7 +23,7 @@ jobs:
         run: npm install
 
       - name: Set up SSH private key # 設定 ssh
-        uses: webfactory/ssh-key-action@v2
+        uses: shimataro/ssh-key-action@v2
         with:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           name: id_rsa

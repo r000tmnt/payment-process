@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: windows-latest
+    runs-on: self-hosted # self-hosted windows runner
     
     steps:
       - name: Checkout repository

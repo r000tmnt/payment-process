@@ -32,7 +32,7 @@ jobs:
       - uses: ChristopheLav/iis-deploy@v1
         with:
           website-name: 'TestCEStudio'
-          msdeploy-service-url: 'https://test.ce-studio.net:8172'
+          msdeploy-service-url: 'https://test.ce-studio.net'
           msdeploy-username: ${{ secrets.TEST_DEPLOY_USER }}
           msdeploy-password: ${{ secrets.TEST_DEPLOY_PASSWORD }}
           source-path: ${{ github.workspace }}\dist

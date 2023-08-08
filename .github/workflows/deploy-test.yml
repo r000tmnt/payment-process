@@ -25,13 +25,13 @@ jobs:
       - name: Build # 打包專案
         run: npm run build
 
-      - name: See if production build exist
+      - name: Check if production build exist
         run: ls
 
       # Deploy to Windows Server
       - uses: ChristopheLav/iis-deploy@v1
         with:
-          website-name: 'https://test.ce-studio.net'
+          website-name: 'TestCEStudio'
           msdeploy-service-url: 'https://test.ce-studio.net:8172'
           msdeploy-username: ${{ secrets.TEST_DEPLOY_USER }}
           msdeploy-password: ${{ secrets.TEST_DEPLOY_PASSWORD }}

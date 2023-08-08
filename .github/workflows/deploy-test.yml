@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     
     steps:
       - name: Checkout repository
@@ -22,28 +22,17 @@ jobs:
       - name: Install dependencies # 安裝專案依賴的元件
         run: npm install
 
-      - name: Set up SSH key # 設定 ssh
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          name: ssh.key
-          known_hosts: ${{ secrets.TEST_DEPLOY_SERVER_IP }}
-          if_key_exists: fail 
-
-      - name: Prepare SSH # 設定 ssh
-        run: >
-          cd ~/.ssh && touch known_hosts && ls && ssh -T ${{ secrets.TEST_DEPLOY_USER }}@${{ secrets.TEST_DEPLOY_SERVER_IP }} &&
-          ssh-keyscan -H "${{ secrets.TEST_DEPLOY_SERVER_IP }}" >>known_hosts && chmod 600 ssh.key
-
       - name: Build # 打包專案
         run: npm run build
 
-      - name: Deploy to Windows Server
-        run: rsync -avz ./dist/ ${{ secrets.TEST_DEPLOY_USER }}@${{ secrets.TEST_DEPLOY_SERVER_IP }}:C:/CEISWeb/TestCEStudio
-        # uses: sebastianjnuwu/ssh-action-deploy@v1
-        # with:
-        #   IP: ${{ secrets.TEST_DEPLOY_SERVER_IP }}
-        #   USER: ${{ secrets.TEST_DEPLOY_USER }}
-        #   KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        #   FOLDER: "C:\\CEISWeb\\TestCEStudio"
-        #   RUN: 'ls -a; pwd'
+      - name: See if production build exist
+        run: ls
+
+      # Deploy to Windows Server
+      # - uses: ChristopheLav/iis-deploy@v1
+      #   with:
+      #     website-name: 'https://test.ce-studio.net'
+      #     msdeploy-service-url: 'https://test.ce-studio.net:8172'
+      #     msdeploy-username: ${{ secrets.TEST_DEPLOY_USER }}
+      #     msdeploy-password: ${{ secrets.TEST_DEPLOY_PASSWORD }}
+      #     source-path: ${{ github.workspace }}\website\publish

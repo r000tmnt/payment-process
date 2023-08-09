@@ -8,7 +8,8 @@ on:
 jobs:
   build-and-deploy:
     # runs-on: windows-latest # github-hosted windows runner
-    runs-on: self-hosted # self-hosted windows runner
+    # runs-on: self-hosted # self-hosted windows runner
+    runs-on: ubuntu-latest
     
     steps:
       - name: Checkout repository
@@ -29,11 +30,19 @@ jobs:
       - name: Check if production build exist
         run: ls
 
-      # Deploy to Windows Server
-      - uses: ChristopheLav/iis-deploy@v1
-        with:
-          website-name: 'TestCEStudio'
-          msdeploy-service-url: 'https://test.ce-studio.net:8172'
-          msdeploy-username: ${{ secrets.TEST_DEPLOY_USER }}
-          msdeploy-password: ${{ secrets.TEST_DEPLOY_PASSWORD }}
-          source-path: ${{ github.workspace }}\dist
+      -name: Deploy to Windows Server
+            uses: appleboy/scp-action@v0.1.4
+            with:
+              host: ${{ secrets.HOST }}
+              username: ${{ secrets.TEST_DEPLOY_USER }}
+              password: ${{ secrets.TEST_DEPLOY_PASSWORD  }}
+              port: 22
+              source: ${{ github.workspace }}\dist
+              target: ${{ secrets.TEST_DEPLOY_TARGET }}
+      # - uses: ChristopheLav/iis-deploy@v1
+      #   with:
+      #     website-name: 'TestCEStudio'
+      #     msdeploy-service-url: 'https://test.ce-studio.net:8172'
+      #     msdeploy-username: ${{ secrets.TEST_DEPLOY_USER }}
+      #     msdeploy-password: ${{ secrets.TEST_DEPLOY_PASSWORD }}
+      #     source-path: ${{ github.workspace }}\dist

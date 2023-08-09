@@ -7,8 +7,8 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: windows-latest # github-hosted windows runner
-    # runs-on: self-hosted # self-hosted windows runner
+    # runs-on: windows-latest # github-hosted windows runner
+    runs-on: self-hosted # self-hosted windows runner
     
     steps:
       - name: Checkout repository

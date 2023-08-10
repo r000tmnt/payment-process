@@ -27,8 +27,13 @@ jobs:
       - name: Build # 打包專案
         run: npm run build
 
+      - name: Pack up dist folder
+        run: |
+          cp -TR ${{ github.workspace }}\dist
+          tar -cvf deploy.tar ${{ github.workspace }}\dist
+
       - name: Check if production build exist
-        run: ls
+        run: ls -al
 
       - name: Deploy to Windows Server
         uses: appleboy/scp-action@v0.1.4
@@ -37,7 +42,7 @@ jobs:
             username: ${{ secrets.TEST_DEPLOY_USER }}
             password: ${{ secrets.TEST_DEPLOY_PASSWORD  }}
             port: 22
-            source: ${{ github.workspace }}\dist
+            source: deploy.tar
             target: ${{ secrets.TEST_DEPLOY_TARGET }}
       # - uses: ChristopheLav/iis-deploy@v1
       #   with:

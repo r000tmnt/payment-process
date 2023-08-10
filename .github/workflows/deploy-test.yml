@@ -36,13 +36,22 @@ jobs:
         run: ls -al
 
       - name: Copy the file to Windows Server
-        uses: srueda99/scp-action@v12
+        uses: nogsantos/scp-deploy@master
         with:
-            port: 22
-            host: ${{ secrets.TEST_DEPLOY_HOST }}
-            destination: ${{ github.workspace }}\dist
-            username: ${{ secrets.TEST_DEPLOY_USER }}
-            password: ${{ secrets.TEST_DEPLOY_PASSWORD }}
+          src: ./dist/*
+          host: ${{ secrets.TEST_DEPLOY_HOST }}
+          remote: ${{ secrets.TEST_DEPLOY_TARGET }}
+          port: 22
+          user: ${{ secrets.TEST_DEPLOY_USER }}
+          key: ${{ secrets.TEST_DEPLOY_SSH_KEY }}
+
+        # uses: srueda99/scp-action@v12
+        # with:
+        #     port: 22
+        #     host: ${{ secrets.TEST_DEPLOY_HOST }}
+        #     destination: ${{ github.workspace }}\dist
+        #     username: ${{ secrets.TEST_DEPLOY_USER }}
+        #     password: ${{ secrets.TEST_DEPLOY_PASSWORD }}
 
         # uses: garygrossgarten/github-action-scp@release
         # with:

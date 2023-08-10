@@ -33,7 +33,7 @@ jobs:
       - name: Deploy to Windows Server
         uses: appleboy/scp-action@v0.1.4
         with:
-            host: ${{ secrets.HOST }}
+            host: ${{ secrets.TEST_DEPLOY_HOST }}
             username: ${{ secrets.TEST_DEPLOY_USER }}
             password: ${{ secrets.TEST_DEPLOY_PASSWORD  }}
             port: 22

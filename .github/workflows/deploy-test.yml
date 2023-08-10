@@ -10,7 +10,7 @@ jobs:
     # runs-on: windows-latest # github-hosted windows runner
     # runs-on: self-hosted # self-hosted windows runner
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -30,15 +30,15 @@ jobs:
       - name: Check if production build exist
         run: ls
 
-      -name: Deploy to Windows Server
-       uses: appleboy/scp-action@v0.1.4
-       with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.TEST_DEPLOY_USER }}
-          password: ${{ secrets.TEST_DEPLOY_PASSWORD  }}
-          port: 22
-          source: ${{ github.workspace }}\dist
-          target: ${{ secrets.TEST_DEPLOY_TARGET }}
+      - name: Deploy to Windows Server
+        uses: appleboy/scp-action@v0.1.4
+        with:
+            host: ${{ secrets.HOST }}
+            username: ${{ secrets.TEST_DEPLOY_USER }}
+            password: ${{ secrets.TEST_DEPLOY_PASSWORD  }}
+            port: 22
+            source: ${{ github.workspace }}\dist
+            target: ${{ secrets.TEST_DEPLOY_TARGET }}
       # - uses: ChristopheLav/iis-deploy@v1
       #   with:
       #     website-name: 'TestCEStudio'

@@ -37,12 +37,12 @@ jobs:
 
       - name: Copy the file to Windows Server
         uses: garygrossgarten/github-action-scp@release
-          with:
-            local: deploy.tar.gz
-            remote: ${{ secrets.TEST_DEPLOY_TARGET }}
-            host: ${{ secrets.TEST_DEPLOY_HOST }}
-            username: ${{ secrets.TEST_DEPLOY_USER }}
-            password: ${{ secrets.TEST_DEPLOY_PASSWORD }}
+        with:
+          local: deploy.tar.gz
+          remote: ${{ secrets.TEST_DEPLOY_TARGET }}
+          host: ${{ secrets.TEST_DEPLOY_HOST }}
+          username: ${{ secrets.TEST_DEPLOY_USER }}
+          password: ${{ secrets.TEST_DEPLOY_PASSWORD }}
         # uses: appleboy/scp-action@v0.1.4
         # with:
         #     host: ${{ secrets.TEST_DEPLOY_HOST }}

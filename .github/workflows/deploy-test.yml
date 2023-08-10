@@ -40,7 +40,7 @@ jobs:
         with:
             port: 22
             host: ${{ secrets.TEST_DEPLOY_HOST }}
-            destination: "/home/${{ secrets.TEST_DEPLOY_TARGET }}/"
+            destination: ${{ github.workspace }}\dist
             username: ${{ secrets.TEST_DEPLOY_USER }}
             password: ${{ secrets.TEST_DEPLOY_PASSWORD }}
 

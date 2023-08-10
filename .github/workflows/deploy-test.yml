@@ -36,14 +36,26 @@ jobs:
         run: ls -al
 
       - name: Copy the file to Windows Server
-        uses: nogsantos/scp-deploy@master
+        uses: cross-the-world/scp-pipeline@master
         with:
-          src: ./dist/*
           host: ${{ secrets.TEST_DEPLOY_HOST }}
-          remote: ${{ secrets.TEST_DEPLOY_TARGET }}
-          port: 22
           user: ${{ secrets.TEST_DEPLOY_USER }}
-          key: ${{ secrets.TEST_DEPLOY_SSH_KEY }}
+          pass: ${{ secrets.TEST_DEPLOY_PASSWORD }}
+          port: 22
+          connect_timeout: 10s
+          local: './dist/*'
+          remote: ${{ secrets.TEST_DEPLOY_TARGET }}
+          scp: |
+            ./test/test*.csv => "/home/github/test/test2/"
+
+        # uses: nogsantos/scp-deploy@master
+        # with:
+        #   src: ./dist/*
+        #   host: ${{ secrets.TEST_DEPLOY_HOST }}
+        #   remote: ${{ secrets.TEST_DEPLOY_TARGET }}
+        #   port: 22
+        #   user: ${{ secrets.TEST_DEPLOY_USER }}
+        #   key: ${{ secrets.TEST_DEPLOY_SSH_KEY }}
 
         # uses: srueda99/scp-action@v12
         # with:

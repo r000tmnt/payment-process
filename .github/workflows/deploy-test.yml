@@ -42,7 +42,7 @@ jobs:
             username: ${{ secrets.TEST_DEPLOY_USER }}
             password: ${{ secrets.TEST_DEPLOY_PASSWORD  }}
             port: 22
-            source: deploy.tar.gz
+            source: "deploy.tar.gz"
             target: ${{ secrets.TEST_DEPLOY_TARGET }}
       # - uses: ChristopheLav/iis-deploy@v1
       #   with:

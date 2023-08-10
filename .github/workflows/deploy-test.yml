@@ -30,7 +30,7 @@ jobs:
       - name: Pack up dist folder
         run: |
           cp -TR ${{ github.workspace }}\dist
-          tar -cvf deploy.tar ${{ github.workspace }}\dist
+          tar -zcvf deploy.tar.gz ${{ github.workspace }}\dist
 
       - name: Check if production build exist
         run: ls -al
@@ -42,7 +42,7 @@ jobs:
             username: ${{ secrets.TEST_DEPLOY_USER }}
             password: ${{ secrets.TEST_DEPLOY_PASSWORD  }}
             port: 22
-            source: deploy.tar
+            source: deploy.tar.gz
             target: ${{ secrets.TEST_DEPLOY_TARGET }}
       # - uses: ChristopheLav/iis-deploy@v1
       #   with:

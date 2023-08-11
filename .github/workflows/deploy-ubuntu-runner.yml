@@ -25,16 +25,8 @@ jobs:
         $localPath = "${{ github.workspace }}/dist"
         $remotePath = "${{ secrets.TEST_DEPLOY_TARGET }}"
 
-        echo $remoteHost
-        echo $remoteUsername
-        echo $remotePassword
-        echo $localPath
-        echo $remotePath
-
         # Create a new SSH session
-        $secpasswd = ConvertTo-SecureString $remotePassword -AsPlainText -Force
-        $credentials = New-Object System.Management.Automation.PSCredential ($remoteUsername, $secpasswd)
-        $session = New-PSSession -HostName $remoteHost -Credential $credentials
+        $session = New-SSHSession -ComputerName $serverAddress -Credential (Get-Credential -UserName $remoteUsername -Password $remotePassword)
 
         # Copy files to remote server
         Copy-Item -Path $localPath/* -Destination $remotePath -ToSession $session

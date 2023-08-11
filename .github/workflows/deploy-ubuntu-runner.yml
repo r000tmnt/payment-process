@@ -13,9 +13,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    # - name: Setup PowerShell
-    #   uses: actions/setup-powershell@v2
-
     - name: Install SSH client
       run: sudo apt-get install openssh-client
 
@@ -24,7 +21,7 @@ jobs:
         $remoteHost = "${{ secrets.TEST_DEPLOY_HOST }}"
         $remoteUsername = "${{ secrets.TEST_DEPLOY_USER }}"
         $remotePassword = "${{ secrets.TEST_DEPLOY_PASSWORD }}"
-        $localPath = "${{ github.workspace }}\dist"
+        $localPath = "${{ github.workspace }}/dist"
         $remotePath = "${{ secrets.TEST_DEPLOY_TARGET }}"
 
         # Create a new SSH session

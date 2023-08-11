@@ -28,7 +28,7 @@ jobs:
         # Create a new SSH session
         $secpasswd = ConvertTo-SecureString $remotePassword -AsPlainText -Force
         $credentials = New-Object System.Management.Automation.PSCredential -ArgumentList ($remoteUsername, $secpasswd)
-        $session = New-PSSession -HostName $remoteHost -Credential $credentials
+        $session = New-SSHSession -ComputerName $remoteHost -Credential $credentials
 
         # Copy files to remote server
         Copy-Item -Path $localPath/* -Destination $remotePath -ToSession $session

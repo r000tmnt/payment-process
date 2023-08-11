@@ -35,56 +35,30 @@ jobs:
       - name: Check if production build exist
         run: ls -al
 
-      - name: Copy the file to Windows Server
-        uses: cross-the-world/scp-pipeline@master
-        with:
-          host: ${{ secrets.TEST_DEPLOY_HOST }}
-          user: ${{ secrets.TEST_DEPLOY_USER }}
-          pass: ${{ secrets.TEST_DEPLOY_PASSWORD }}
-          port: 22
-          connect_timeout: 10s
-          local: ${{ github.workspace }}dist
-          remote: ${{ secrets.TEST_DEPLOY_TARGET }}
-          scp: |
-            ./test/test*.csv => "/home/github/test/test2/"
+      - name: Set TrustedHosts
+        shell: pwsh
+        run: |
+          $trustedHosts = "${{ secrets.TEST_DEPLOY_HOST }}"
+          $trustedHostsArray = $trustedHosts -split ","
+          $trustedHostsString = $trustedHostsArray -join ","
+          Set-Item WSMan:\localhost\Client\TrustedHosts -Value $trustedHostsString -Force
+        
+      - name: Deploy to Windows Server
+        run: |
+          $remoteHost = "${{ secrets.TEST_DEPLOY_HOST }}"
+          $remoteUsername = "${{ secrets.TEST_DEPLOY_USER }}"
+          $remotePassword = "${{ secrets.TEST_DEPLOY_PASSWORD }}"
+          $localPath = "${{ github.workspace }}\dist"
+          $remotePath = "C:\CEISWeb\TestCEStudio"
 
-        # uses: nogsantos/scp-deploy@master
-        # with:
-        #   src: ./dist/*
-        #   host: ${{ secrets.TEST_DEPLOY_HOST }}
-        #   remote: ${{ secrets.TEST_DEPLOY_TARGET }}
-        #   port: 22
-        #   user: ${{ secrets.TEST_DEPLOY_USER }}
-        #   key: ${{ secrets.TEST_DEPLOY_SSH_KEY }}
+          $secpasswd = ConvertTo-SecureString $remotePassword -AsPlainText -Force
+          $credentials = New-Object System.Management.Automation.PSCredential ($remoteUsername, $secpasswd)
+    
+          # Create a new PSSession
+          $session = New-PSSession -ComputerName $remoteHost -Credential $credentials
 
-        # uses: srueda99/scp-action@v12
-        # with:
-        #     port: 22
-        #     host: ${{ secrets.TEST_DEPLOY_HOST }}
-        #     destination: ${{ github.workspace }}\dist
-        #     username: ${{ secrets.TEST_DEPLOY_USER }}
-        #     password: ${{ secrets.TEST_DEPLOY_PASSWORD }}
-
-        # uses: garygrossgarten/github-action-scp@release
-        # with:
-        #   local: dist
-        #   remote: ${{ secrets.TEST_DEPLOY_TARGET }}
-        #   host: ${{ secrets.TEST_DEPLOY_HOST }}
-        #   username: ${{ secrets.TEST_DEPLOY_USER }}
-        #   password: ${{ secrets.TEST_DEPLOY_PASSWORD }}
-
-        # uses: appleboy/scp-action@v0.1.4
-        # with:
-        #     host: ${{ secrets.TEST_DEPLOY_HOST }}
-        #     username: ${{ secrets.TEST_DEPLOY_USER }}
-        #     password: ${{ secrets.TEST_DEPLOY_PASSWORD  }}
-        #     port: 22
-        #     source: "deploy.tar.gz"
-        #     target: ${{ secrets.TEST_DEPLOY_TARGET }}
-      # - uses: ChristopheLav/iis-deploy@v1
-      #   with:
-      #     website-name: 'TestCEStudio'
-      #     msdeploy-service-url: 'https://test.ce-studio.net:8172'
-      #     msdeploy-username: ${{ secrets.TEST_DEPLOY_USER }}
-      #     msdeploy-password: ${{ secrets.TEST_DEPLOY_PASSWORD }}
-      #     source-path: ${{ github.workspace }}\dist
+          # Copy files to remote server using Copy-Item
+          Copy-Item -Path $localPath\* -Destination $remotePath -ToSession $session
+          
+          # Close SSH session
+          Remove-PSSession -Session $session

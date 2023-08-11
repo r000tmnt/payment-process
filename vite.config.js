@@ -24,4 +24,5 @@ export default defineConfig(({mode}) => {
     config.base = '/payment_process/'
   }
 
+  return config
 })

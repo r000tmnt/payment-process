@@ -58,7 +58,7 @@ jobs:
           $session = New-PSSession -ComputerName $remoteHost -Credential $credentials
 
           # Copy files to remote server using Copy-Item
-          Copy-Item -Path $localPath\* -Destination $remotePath -ToSession $session
+          Copy-Item -Path $localPath\* -Destination $remotePath -Recurse -ToSession $session
           
           # Close SSH session
           Remove-PSSession -Session $session

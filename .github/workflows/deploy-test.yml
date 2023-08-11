@@ -33,7 +33,7 @@ jobs:
       #     tar -zcvf deploy.tar.gz ${{ github.workspace }}\dist
 
       - name: Check if production build exist
-        run: ls -al
+        run: dir
 
       - name: Set TrustedHosts
         shell: pwsh

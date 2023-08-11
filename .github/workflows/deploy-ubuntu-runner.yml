@@ -30,9 +30,7 @@ jobs:
         $remotePath = "${{ secrets.TEST_DEPLOY_TARGET }}"
 
         # Create a new SSH session
-        $secpasswd = ConvertTo-SecureString $remotePassword -AsPlainText -Force
-        $credentials = New-Object System.Management.Automation.PSCredential -ArgumentList ($remoteUsername, $secpasswd)
-        $session = New-SSHSession -ComputerName $remoteHost -Credential $credentials
+        $session = New-SSHSession -ComputerName $remoteHost -Credential (Get-Credential -UserName $remoteUsername -Password $remotePassword)
 
         # Copy files to remote server
         Copy-Item -Path $localPath/* -Destination $remotePath -ToSession $session

@@ -1,0 +1,39 @@
+name: Deploy to Windows Server
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup PowerShell
+      uses: actions/setup-powershell@v2
+
+    - name: Install SSH client
+      run: sudo apt-get install openssh-client
+
+    - name: Deploy to Windows Server
+      run: |
+        $remoteHost = "${{ secrets.TEST_DEPLOY_HOST }}"
+        $remoteUsername = "${{ secrets.TEST_DEPLOY_USER }}"
+        $remotePassword = "${{ secrets.TEST_DEPLOY_PASSWORD }}"
+        $localPath = "${{ github.workspace }}\dist"
+        $remotePath = "${{ secrets.TEST_DEPLOY_TARGET }}"
+
+        # Create a new SSH session
+        $secpasswd = ConvertTo-SecureString $remotePassword -AsPlainText -Force
+        $credentials = New-Object System.Management.Automation.PSCredential ($remoteUsername, $secpasswd)
+        $session = New-PSSession -HostName $remoteHost -Credential $credentials
+
+        # Copy files to remote server
+        Copy-Item -Path $localPath/* -Destination $remotePath -ToSession $session
+
+        # Close SSH session
+        Remove-PSSession -Session $session

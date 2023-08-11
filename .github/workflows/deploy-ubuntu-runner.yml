@@ -25,6 +25,12 @@ jobs:
         $localPath = "${{ github.workspace }}/dist"
         $remotePath = "${{ secrets.TEST_DEPLOY_TARGET }}"
 
+        echo $remoteHost
+        echo $remoteUsername
+        echo $remotePassword
+        echo $localPath
+        echo $remotePath
+
         # Create a new SSH session
         $secpasswd = ConvertTo-SecureString $remotePassword -AsPlainText -Force
         $credentials = New-Object System.Management.Automation.PSCredential ($remoteUsername, $secpasswd)

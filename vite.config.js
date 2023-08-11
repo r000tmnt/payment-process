@@ -20,7 +20,7 @@ export default defineConfig(({mode}) => {
     }    
   }
 
-  if(mode === 'action'){
+  if(mode === 'page'){
     config.base = '/payment_process/'
   }
 

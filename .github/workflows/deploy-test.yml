@@ -25,7 +25,7 @@ jobs:
         run: npm install
 
       - name: Build # 打包專案
-        run: npm run build
+        run: npm run build:action
 
       # - name: Pack up dist folder
       #   run: |
@@ -33,7 +33,7 @@ jobs:
       #     tar -zcvf deploy.tar.gz ${{ github.workspace }}\dist
 
       - name: Check if production build exist
-        run: cd dist && dir && cd assets && dir
+        run: cd dist-action && dir && cd assets && dir
 
       - name: Set TrustedHosts
         shell: pwsh
@@ -48,7 +48,7 @@ jobs:
           $remoteHost = "${{ secrets.TEST_DEPLOY_HOST }}"
           $remoteUsername = "${{ secrets.TEST_DEPLOY_USER }}"
           $remotePassword = "${{ secrets.TEST_DEPLOY_PASSWORD }}"
-          $localPath = "${{ github.workspace }}\dist"
+          $localPath = "${{ github.workspace }}\dist-action"
           $remotePath = "C:\CEISWeb\TestCEStudio"
 
           $secpasswd = ConvertTo-SecureString $remotePassword -AsPlainText -Force

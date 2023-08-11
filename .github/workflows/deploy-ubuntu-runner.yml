@@ -17,6 +17,7 @@ jobs:
       run: sudo apt-get install openssh-client
 
     - name: Deploy to Windows Server
+      shell: pwsh
       run: |
         $remoteHost = "${{ secrets.TEST_DEPLOY_HOST }}"
         $remoteUsername = "${{ secrets.TEST_DEPLOY_USER }}"

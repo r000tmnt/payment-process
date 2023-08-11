@@ -17,6 +17,7 @@ jobs:
       run: sudo apt-get install openssh-client
 
     - name: Install Posh-SSH
+      shell: pwsh
       run: Install-Module -Name Posh-SSH -Force
 
     - name: Deploy to Windows Server

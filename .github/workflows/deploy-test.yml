@@ -56,7 +56,7 @@ jobs:
           Invoke-Command -Session $session -ScriptBlock { Remove-Item -Path $using:remotePath -Recurse -Verbose }
 
           # Copy files to remote server using Copy-Item
-          Copy-Item -Path $localPath\* -Destination $remotePath -Recurse -Force -Verbose -ToSession $session
+          robocopy $localPath\* $remotePath -Recurse -Force -Verbose -ToSession $session
 
           # Start the website
           Invoke-Command -Session $session -ScriptBlock { Start-WebAppPool -Name "TestCEStudio" }

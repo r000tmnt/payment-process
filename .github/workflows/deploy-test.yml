@@ -27,11 +27,6 @@ jobs:
       - name: Build # 打包專案
         run: npm run build
 
-      # - name: Pack up dist folder
-      #   run: |
-      #     cp -TR . ${{ github.workspace }}\dist
-      #     tar -zcvf deploy.tar.gz ${{ github.workspace }}\dist
-
       - name: Check if production build exist
         run: cd dist && dir && cd assets && dir
 
@@ -56,6 +51,9 @@ jobs:
     
           # Create a new PSSession
           $session = New-PSSession -ComputerName $remoteHost -Credential $credentials
+
+          # Clear the existing contents in the remote folder
+          Invoke-Command -Session $session -ScriptBlock { Remove-Item -Path $using:remotePath -Recurse }
 
           # Copy files to remote server using Copy-Item
           Copy-Item -Path $localPath\* -Destination $remotePath -Recurse -ToSession $session

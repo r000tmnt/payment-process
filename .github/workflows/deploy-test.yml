@@ -48,6 +48,7 @@ jobs:
     
           # Create a new PSSession
           $session = New-PSSession -ComputerName $remoteHost -Credential $credentials
+          Write-Output $session
 
           # Stop the website
           Invoke-Command -Session $session -ScriptBlock { Stop-IISSite -Name "TestCEStudio" }

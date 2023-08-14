@@ -50,7 +50,7 @@ jobs:
           $session = New-PSSession -ComputerName $remoteHost -Credential $credentials
 
           # Stop the website
-          Invoke-Command -Session $session -ScriptBlock { Stop-WebAppPool -Name "TestCEStudio" }
+          #Invoke-Command -Session $session -ScriptBlock { Stop-WebAppPool -Name "TestCEStudio" }
 
           # Clear the existing contents in the remote folder
           Invoke-Command -Session $session -ScriptBlock { Remove-Item -Path $using:remotePath -Recurse -Verbose }
@@ -59,7 +59,7 @@ jobs:
           Copy-Item -Path $localPath\* -Destination $remotePath -Recurse -Force -Verbose -ToSession $session
 
           # Start the website
-          Invoke-Command -Session $session -ScriptBlock { Start-WebAppPool -Name "TestCEStudio" }
+          #Invoke-Command -Session $session -ScriptBlock { Start-WebAppPool -Name "TestCEStudio" }
           
           # Close SSH session
           Remove-PSSession -Session $session

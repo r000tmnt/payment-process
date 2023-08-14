@@ -27,9 +27,6 @@ jobs:
       - name: Build # 打包專案
         run: npm run build
 
-      - name: Check if production build exist
-        run: cd dist && dir && cd assets && dir
-
       - name: Set TrustedHosts
         shell: pwsh
         run: |

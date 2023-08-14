@@ -53,10 +53,11 @@ jobs:
           Invoke-Command -Session $session -ScriptBlock { Stop-WebAppPool -Name "TestCEStudio" }
 
           # Clear the existing contents in the remote folder
-          Invoke-Command -Session $session -ScriptBlock { Remove-Item -Path $using:remotePath -Recurse -Verbose }
+          Invoke-Command -Session $session -ScriptBlock { Remove-Item -Path $using:{{ $remotePath }}\* -Recurse -Verbose }
 
           # Copy files to remote server using Copy-Item
           Copy-Item -Path $localPath\* -Recurse -Destination $remotePath -Verbose -ToSession $session
+          Invoke-Command -Session $session -ScriptBlock { Test-Path -Path C:\CEISWeb\TestCEStudio\assets }
 
           # Start the website
           Invoke-Command -Session $session -ScriptBlock { Start-WebAppPool -Name "TestCEStudio" }

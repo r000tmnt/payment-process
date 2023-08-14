@@ -49,11 +49,17 @@ jobs:
           # Create a new PSSession
           $session = New-PSSession -ComputerName $remoteHost -Credential $credentials
 
+          # Stop the website
+          Invoke-Command -Session $session -ScriptBlock { Stop-IISSite -Name "TestCEStudio" }
+
           # Clear the existing contents in the remote folder
           Invoke-Command -Session $session -ScriptBlock { Remove-Item -Path $using:remotePath -Recurse }
 
           # Copy files to remote server using Copy-Item
-          Copy-Item -Path $localPath\* -Destination $remotePath -Recurse -ToSession $session
+          Copy-Item -Path $localPath\* -Destination $remotePath -ToSession $session -Recurse
+
+          # Start the website
+          Invoke-Command -Session $session -ScriptBlock { Start-IISSite -Name "TestCEStudio" }
           
           # Close SSH session
           Remove-PSSession -Session $session

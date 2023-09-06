@@ -50,7 +50,7 @@ jobs:
           $SkipCN = New-PSSessionOption -SkipCNCheck
 
           # Create a new PSSession
-          $session = New-PSSession -ComputerName -UseSSL $remoteHost -Credential $credentials $SkipCN
+          $session = New-PSSession -ComputerName $remoteHost -UseSSL -Credential $credentials $SkipCN
           
           Enter-PSSession -Session $session
           # $session = New-PSSession -ConnectionUri $remoteTarget -Credential $credentials

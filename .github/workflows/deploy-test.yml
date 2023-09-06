@@ -49,7 +49,7 @@ jobs:
           $PSOptions = New-PSSessionOption -ProxyAccessType WinHttpConfig -ProxyAuthentication Negotiate
 
           # Create a new PSSession
-          $session = New-PSSession -ComputerName $remoteHost -Port 60009 -Credential $credentials -SessionOption $PSOptions
+          $session = New-PSSession -ComputerName $remoteHost -Credential $credentials -SessionOption $PSOptions
           
           Enter-PSSession -Session $session
           # $session = New-PSSession -ConnectionUri $remoteTarget -Credential $credentials

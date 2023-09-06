@@ -46,10 +46,10 @@ jobs:
 
           $secpasswd = ConvertTo-SecureString $remotePassword -AsPlainText -Force
           $credentials = New-Object System.Management.Automation.PSCredential ($remoteUsername, $secpasswd)
-          $PSOptions = New-PSSessionOption -ProxyAccessType WinHttpConfig -ProxyAuthentication Negotiate
+          #$PSOptions = New-PSSessionOption -ProxyAccessType WinHttpConfig -ProxyAuthentication Negotiate
 
           # Create a new PSSession
-          $session = New-PSSession -ComputerName $remoteHost -Credential $credentials -SessionOption $PSOptions
+          $session = New-PSSession -ComputerName $remoteHost -Credential $credentials 
           
           Enter-PSSession -Session $session
           # $session = New-PSSession -ConnectionUri $remoteTarget -Credential $credentials

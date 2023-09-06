@@ -49,7 +49,7 @@ jobs:
           winrm quickconfig
 
           # Create a new PSSession
-          $session = New-PSSession -ComputerName -Port 60009 $remoteHost -Credential $credentials
+          $session = New-PSSession -ComputerName $remoteHost -Port 60009 -Credential $credentials
 
           # Stop the website
           Invoke-Command -Session $session -ScriptBlock { Stop-WebAppPool -Name "TestCEStudio" }

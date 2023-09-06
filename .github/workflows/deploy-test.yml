@@ -46,12 +46,10 @@ jobs:
 
           $secpasswd = ConvertTo-SecureString $remotePassword -AsPlainText -Force
           $credentials = New-Object System.Management.Automation.PSCredential ($remoteUsername, $secpasswd)
-    
-          winrm quickconfig
 
           # Create a new PSSession
-          # $session = New-PSSession -ComputerName $remoteHost -Port 60009 -Credential $credentials
-          $session = New-PSSession -ConnectionUri $remoteTarget -Credential $credentials
+          $session = New-PSSession -ComputerName $remoteHost -Port 60009 -Credential $credentials
+          # $session = New-PSSession -ConnectionUri $remoteTarget -Credential $credentials
 
           # Stop the website
           Invoke-Command -Session $session -ScriptBlock { Stop-WebAppPool -Name "TestCEStudio" }

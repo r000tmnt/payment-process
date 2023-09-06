@@ -40,6 +40,7 @@ jobs:
           $remoteHost = "${{ secrets.TEST_DEPLOY_HOST }}"
           $remoteUsername = "${{ secrets.TEST_DEPLOY_USER }}"
           $remotePassword = "${{ secrets.TEST_DEPLOY_PASSWORD }}"
+          $remoteTarget = "${{ secrets.TEST_DEPLOY_TARGET }}"
           $localPath = "${{ github.workspace }}\dist"
           $remotePath = "C:\CEISWeb\TestCEStudio"
 
@@ -49,7 +50,8 @@ jobs:
           winrm quickconfig
 
           # Create a new PSSession
-          $session = New-PSSession -ComputerName $remoteHost -Port 60009 -Credential $credentials
+          # $session = New-PSSession -ComputerName $remoteHost -Port 60009 -Credential $credentials
+          $session = New-PSSession -ConnectionUri $remoteTarget -Credential $credentials
 
           # Stop the website
           Invoke-Command -Session $session -ScriptBlock { Stop-WebAppPool -Name "TestCEStudio" }
